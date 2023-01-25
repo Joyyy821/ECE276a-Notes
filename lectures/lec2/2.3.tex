@@ -1,0 +1,85 @@
+\chapter{Unconstrained Optimization}
+\graphicspath{{../../img/img-2-3/}}
+
+\section{Newton's and Gauss-Newton's Methods}
+
+Following the discussion on gradient descent method, we still consider the 
+unconstrained optimization problem (restated here in E.q. (\ref{uncstrn-opt})).
+
+\begin{equation}
+    \min_{\textbf{x}\in \mathbb{R}^d}{f(\textbf{x})}
+    \label{uncstrn-opt}
+\end{equation}
+
+First we discuss the second-order method (Newton's method), which utilizes information
+in the second-order derivatives. Then we focus on a certain type of objective function,
+and approximate the hessian matrix in Newton's method by first-order derivatives.
+
+% TODO: move this section to the example section
+Here we compare the three optimization methods:
+
+\begin{center}
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Optimization methods & Step size & Comments \\ 
+        \hline
+        Gradient descent & $\delta \textbf{x}_k = -\nabla f(\textbf{x}_k)$ & cell6 \\ 
+        \hline
+        Newton's method & $\delta \textbf{x}_k = 
+        -[\nabla^2 f(\textbf{x}_k)]^{-1} \nabla f(\textbf{x}_k)$ & cell9 \\ 
+        \hline
+        Gauss-Newton's method & 
+        \vtop{\hbox{\strut $\delta \textbf{x}_k = -\hat{H}^{-1} g$}
+        \hbox{\strut $f(\textbf{x})=\frac{1}{2} \textbf{e}(\textbf{x})^T \textbf{e}(\textbf{x})$}
+        \hbox{\strut $g = (\frac{\partial \textbf{e}(\textbf{x}_k)}{\partial \textbf{x}} 
+        | _{\textbf{x}=\textbf{x}_k})^T$}
+        \hbox{\strut $\hat{H} = g \cdot g^T$}
+        }
+         & cell12\\
+
+        % Gauss-Newton's method & $\delta \textbf{x}_k = -\hat{H}^{-1} g$ \newline 
+        % $f(\textbf{x})=\frac{1}{2} \textbf{e}(\textbf{x})^T \textbf{e}(\textbf{x})$ \newline 
+        % $g = (\frac{\partial \textbf{e}(\textbf{x}_k)}{\partial \textbf{x}} 
+        % | _{\textbf{x}=\textbf{x}_k})^T$ \newline 
+        % $\hat{H} = g \cdot g^T$ & cell12\\
+        \hline % \nabla 
+    \end{tabular}
+\end{center}
+
+\subsection{Newton's Method}
+We approximate the objective function $f(\textbf{x})$ using Taylor's expansion:
+
+\begin{equation}
+    f(\textbf{x}_k+\delta \textbf{x}) \approx f(\textbf{x}_k) + 
+    (\frac{\partial f(\textbf{x})}{\partial \textbf{x}} |_{\textbf{x}=\textbf{x}_k})
+    \delta \textbf{x} +
+    \frac{1}{2}\delta \textbf{x}^T (\frac{\partial^2 f(\textbf{x})}
+    {\partial \textbf{x} \partial \textbf{x}^T}|_{\textbf{x}=\textbf{x}_k})
+    \delta \textbf{x}
+    \label{newton}
+\end{equation}
+
+where $\delta \textbf{x}$ is a small change on $\textbf{x} = \textbf{x}_k$. Here we define:
+
+\begin{equation}
+    q(\delta \textbf{x}, \textbf{x}_k) := 
+    f(\textbf{x}_k) + 
+    (\frac{\partial f(\textbf{x})}{\partial \textbf{x}} |_{\textbf{x}=\textbf{x}_k})
+    \delta \textbf{x} +
+    \frac{1}{2}\delta \textbf{x}^T (\frac{\partial^2 f(\textbf{x})}
+    {\partial \textbf{x} \partial \textbf{x}^T}|_{\textbf{x}=\textbf{x}_k})
+    \delta \textbf{x}
+    \label{q}
+\end{equation}
+
+$q(\delta \textbf{x}, \textbf{x}_k)$ is a quadratic approximation of $f(\textbf{x})$
+around $\textbf{x} = \textbf{x}_k$. Minimizing $q(\delta \textbf{x}, \textbf{x}_k)$
+leads us to a descent direction (with step size indicated as well).
+
+% TODO: figure from the lecture slide
+
+
+
+\subsection{Gauss-Newton's Method}
+
+\subsection{Example}
